@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LD1_FINALS</title>
+    <style>
+   
+        body {
+            font-family: sans-serif;
+            display: flex;
+            background-image: url(pic/images.jpg);
+            background-size: cover;
+            justify-content: center;
+            align-items: center;
+            height: 35vh;
+            margin: .5px;
+        }
+       
+        .login-container {
+            padding: 45px;
+            background-color:transparent;
+            border-radius: 8px;
+            box-shadow: 0 5px 10px rgb(0, 0, 0);
+            width: 300px;
+            text-align: center;
+            color: #050404;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #000000;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+       
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ffffff;
+            color: rgb(10, 8, 8);
+            font-size:20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            
+        }
+        .error-message {
+            color: rgb(255, 255, 255);
+            font-size: 14px;
+            display: none;
+        }
+
+       
+        #lockout-message {
+            font-weight: bold;
+            font-size: 11.5px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Log in</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required placeholder="Enter your username">
+            </div>
+           
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+           
+            <button type="submit" id="login-button">LOG IN</button>
+            <p id="lockout-message" class="error-message" style="display: none;">Wrong username or password. Please try again in 10 seconds.</p>
+        </form>
+    </div>
+
+    <script>
+        let attemptCount = 0;
+        let lockoutTimer;
+
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+           
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+           
+            const correctUsername = 'admin123';
+            const correctPassword = 'admin123';
+
+           
+            if (attemptCount >= 1) {
+               
+                document.getElementById('login-button').disabled = true;
+                document.getElementById('lockout-message').style.display = 'block';
+               
+               
+                lockoutTimer = setTimeout(() => {
+                    attemptCount = 0;  
+                    document.getElementById('login-button').disabled = false;
+                    document.getElementById('lockout-message').style.display = 'none';
+                }, 10000);
+               
+                return;
+            }
+
+            if (username === correctUsername && password === correctPassword) {
+               
+                alert('Login successful!');
+               
+               
+                window.location.href = 'dex.html';
+            } else {
+              
+                attemptCount++;
+                document.getElementById('login-error').style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+</html>
